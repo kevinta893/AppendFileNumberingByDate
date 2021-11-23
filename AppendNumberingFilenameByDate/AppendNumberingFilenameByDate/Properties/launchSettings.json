@@ -2,7 +2,6 @@
   "profiles": {
     "AppendNumberingFilenameByDate": {
       "commandName": "Project",
-      "commandLineArgs": "--directory-path R:\\GShadeTest -l 1000"
     }
   }
 }

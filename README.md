@@ -1,6 +1,8 @@
 # AppendFileNumberingByDate
 Renames files by appending a 0 padded number at the end of them by date in ascending date/time order.
 
+Skips renaming if the file has already been renamed the intended number. Deleted files will cause subsequent files in the numbering scheme to be renamed and name collisions may occur.
+
 ## How to Run
 
 Rename all files in directory
