@@ -54,19 +54,21 @@ namespace AppendNumberingFilenameByDate
                 files = files.Where(f => f.CreatedDate >= dateAgo);
             }
 
-            var filesByDate = files.GroupBy(f => f.CreatedDate.ToShortDateString());
+            var filesByDate = files.GroupBy(f => f.CreatedDate.Date)
+                .OrderBy(f => f.Key);
 
             //Process renamings
             var totalFilesRenamed = 0;
             foreach (var dateGroup in filesByDate)
             {
                 var i = 0;
-                var numberOfFilesInDate = (int) Math.Floor(Math.Log10(dateGroup.Count()));          //Compute pad length on count of files
+                var numFilesInGroup = dateGroup.Count();
+                var numberOfFilesInDate = (int) Math.Floor(Math.Log10(numFilesInGroup));          //Compute pad length on count of files
                 var minPadLength = Math.Max(3, numberOfFilesInDate);
 
                 var renamedDetectRegex = new Regex("_\\d+$");
 
-                Console.WriteLine($"Renaming files from {dateGroup.Key}");
+                Console.WriteLine($"[Date] Renaming files from {dateGroup.First().CreatedDate.ToShortDateString()}");
 
                 //Rename files in date groups
                 foreach(var file in dateGroup)
