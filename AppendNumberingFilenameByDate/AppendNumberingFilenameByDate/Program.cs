@@ -44,7 +44,7 @@ namespace AppendNumberingFilenameByDate
         private static void AppendNumberingToFileNames(string path, int days = -1)
         {
             var files = Directory.GetFiles(path)
-                .Select(fp => ((DateTime CreatedDate, string Path))(File.GetLastWriteTime(fp), fp));
+                .Select(fp => ((DateTime CreatedDate, string Path))(File.GetCreationTime(fp), fp));
 
             //Apply date filtering
             if (days > 0)
@@ -65,6 +65,8 @@ namespace AppendNumberingFilenameByDate
                 var minPadLength = Math.Max(3, numberOfFilesInDate);
 
                 var renamedDetectRegex = new Regex("_\\d+$");
+
+                Console.WriteLine($"Renaming files from {dateGroup.Key}");
 
                 //Rename files in date groups
                 foreach(var file in dateGroup)
